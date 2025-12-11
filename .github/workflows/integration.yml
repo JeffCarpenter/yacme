@@ -10,16 +10,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Install pebble and docker-compose
+      - name: Install docker-compose plugin
         run: |
           sudo apt-get update
-          # Ubuntu provides the ACME (RFC 8555) pebble test server package.
-          sudo apt-get install -y pebble docker-compose-plugin
+          sudo apt-get install -y docker-compose-plugin
 
       - name: Pull Pebble test containers
-        run: docker compose -f pebble/docker-compose.yml pull
+        run: |
+          set -euo pipefail
+          docker compose -f pebble/docker-compose.yml pull
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
