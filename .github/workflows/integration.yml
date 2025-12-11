@@ -23,7 +23,7 @@ jobs:
           docker compose -f pebble/docker-compose.yml pull
 
       - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@master
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
 
