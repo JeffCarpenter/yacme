@@ -18,6 +18,9 @@ jobs:
           # Ubuntu provides the ACME (RFC 8555) pebble test server package.
           sudo apt-get install -y pebble docker-compose-plugin
 
+      - name: Pull Pebble test containers
+        run: docker compose -f pebble/docker-compose.yml pull
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
