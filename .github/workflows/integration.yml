@@ -26,4 +26,4 @@ jobs:
           RUST_BACKTRACE: 1
         run: |
           # The tests manage the Pebble lifecycle via docker-compose internally.
-          cargo test --features pebble --tests
+          cargo test --features pebble --tests -- --nocapture
