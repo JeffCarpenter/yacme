@@ -12,10 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install pebble dependencies
+      - name: Install pebble and docker-compose
         run: |
           sudo apt-get update
-          sudo apt-get install -y pebble
+          sudo apt-get install -y pebble docker-compose-plugin
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
