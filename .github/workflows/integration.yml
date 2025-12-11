@@ -15,6 +15,7 @@ jobs:
       - name: Install pebble and docker-compose
         run: |
           sudo apt-get update
+          # Ubuntu provides the ACME (RFC 8555) pebble test server package.
           sudo apt-get install -y pebble docker-compose-plugin
 
       - name: Install Rust toolchain
@@ -23,4 +24,6 @@ jobs:
       - name: Run pebble integration tests
         env:
           RUST_BACKTRACE: 1
-        run: cargo test --features pebble --tests
+        run: |
+          # The tests manage the Pebble lifecycle via docker-compose internally.
+          cargo test --features pebble --tests
