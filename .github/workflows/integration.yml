@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y pebble
+          # Removed unnecessary installation of pebble package
           if ! docker compose version >/dev/null 2>&1; then
             sudo apt-get install -y docker-compose-plugin || sudo apt-get install -y docker-compose
             if ! docker compose version >/dev/null 2>&1 && command -v docker-compose >/dev/null 2>&1; then
