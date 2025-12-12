@@ -15,10 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install docker-compose plugin
+      - name: Install pebble and docker-compose plugin
         run: |
           sudo apt-get update
-          sudo apt-get install -y docker-compose-plugin
+          apt-cache policy pebble
+          sudo apt-get install -y pebble docker-compose-plugin
 
       - name: Pull Pebble test containers
         run: |
