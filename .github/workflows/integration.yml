@@ -36,8 +36,6 @@ jobs:
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
       - name: Show rustc version
         run: rustc --version
 
