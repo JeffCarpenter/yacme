@@ -15,11 +15,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install pebble and docker-compose plugin
+      - name: Install pebble and ensure docker compose is available
         run: |
+          set -euo pipefail
           sudo apt-get update
-          apt-cache policy pebble
-          sudo apt-get install -y pebble docker-compose-plugin
+          sudo apt-get install -y pebble
+          if ! docker compose version >/dev/null 2>&1; then
+            sudo apt-get install -y docker-compose-plugin || sudo apt-get install -y docker-compose
+            if ! docker compose version >/dev/null 2>&1 && command -v docker-compose >/dev/null 2>&1; then
+              sudo mkdir -p /usr/lib/docker/cli-plugins
+              sudo ln -sf "$(command -v docker-compose)" /usr/lib/docker/cli-plugins/docker-compose
+            fi
+          fi
+          docker compose version
 
       - name: Pull Pebble test containers
         run: |
@@ -28,6 +36,10 @@ jobs:
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      - name: Show rustc version
+        run: rustc --version
 
       - name: Run pebble integration tests
         env:
